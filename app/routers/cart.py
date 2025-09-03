@@ -54,7 +54,7 @@ def add_to_cart(payload: CartAddItem, x_session_id: str = Header(...), db: Sessi
     db.commit()
     return get_cart_items(x_session_id, db)
 
-@router.put("/{item_id}/", response_model=CartOut)
+@router.put("/{item_id}", response_model=CartOut)
 def update_cart_item(item_id: int, payload: CartAddItem, x_session_id: str = Header(...), db: Session = Depends(get_db)):
     cart = get_cart(db, x_session_id)
     item = db.get(CartItem, item_id)
@@ -64,7 +64,7 @@ def update_cart_item(item_id: int, payload: CartAddItem, x_session_id: str = Hea
     db.commit()
     return get_cart_items(x_session_id, db)
 
-@router.delete("/{item_id}/", response_model=CartOut)
+@router.delete("/{item_id}", response_model=CartOut)
 def remove_cart_item(item_id: int, x_session_id: str = Header(...), db: Session = Depends(get_db)):
     cart = get_cart(db, x_session_id)
     item = db.get(CartItem, item_id)
